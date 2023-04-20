@@ -5,18 +5,22 @@ import axios from "axios";
 import { Todo } from "./hooks/useTodos";
 
 const TodoForm = () => {
-  const ref = useRef<HTMLInputElement>(null);
+  const refAddInput = useRef<HTMLInputElement>(null);
 
   const queryClient = useQueryClient();
 
-  const { mutate: addTodo, error: errorAddTodo } = useMutation<
+  const {
+    mutate: addTodo,
+    error: errorAddTodo,
+    isLoading: isLoadingAddTodo,
+  } = useMutation<
     Todo, // TData
     Error, // TError
     Todo // TVariables
   >({
     mutationFn: (todo: Todo) =>
       axios
-        .post<Todo>("https://xjsonplaceholder.typicode.com/posts", todo)
+        .post<Todo>("https://jsonplaceholder.typicode.com/posts", todo)
         .then((res) => res.data),
 
     onSuccess: (savedTodo, newTodo) => {
@@ -30,6 +34,8 @@ const TodoForm = () => {
         savedTodo,
         ...(todos || []),
       ]);
+
+      if (refAddInput.current) refAddInput.current.value = "";
     },
   });
 
@@ -44,22 +50,26 @@ const TodoForm = () => {
         onSubmit={(event) => {
           event.preventDefault();
 
-          if (ref.current && ref.current.value)
+          if (refAddInput.current && refAddInput.current.value)
             addTodo({
               id: 0,
-              title: ref.current.value,
+              title: refAddInput.current.value,
               completed: false,
               userId: 1,
             });
         }}
       >
         <div className="col">
-          <input ref={ref} type="text" className="form-control" />
+          <input ref={refAddInput} type="text" className="form-control" />
         </div>
 
         <div className="col">
-          <button className="btn btn-primary" type="submit">
-            Add
+          <button
+            className="btn btn-primary"
+            type="submit"
+            disabled={isLoadingAddTodo}
+          >
+            {isLoadingAddTodo ? "Adding..." : "Add"}
           </button>
         </div>
       </form>

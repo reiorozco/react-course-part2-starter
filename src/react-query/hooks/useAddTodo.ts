@@ -1,8 +1,7 @@
-import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { CACHE_KEY_TODOS } from "../constans";
-import { Todo } from "./useTodos";
+import todoService, { Todo } from "../../services/todoService";
 
 interface AddTodoContext {
   previousTodos: Todo[];
@@ -17,10 +16,7 @@ const useAddTodo = (onAdd: () => void) => {
     Todo, // TVariables
     AddTodoContext // TContext
   >({
-    mutationFn: (todo: Todo) =>
-      axios
-        .post<Todo>("https://jsonplaceholder.typicode.com/posts", todo)
-        .then((res) => res.data),
+    mutationFn: todoService.post,
 
     onMutate: (newTodo: Todo) => {
       const previousTodos =

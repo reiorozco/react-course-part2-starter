@@ -1,11 +1,11 @@
 import React from "react";
 
-import Counter from "./state-management/Counter";
+import TaskList from "./state-management/TaskList";
 
 import "./App.css";
 
 function App() {
-  return <Counter />;
+  return <TaskList />;
 }
 
 export default App;

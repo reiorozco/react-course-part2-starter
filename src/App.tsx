@@ -1,18 +1,11 @@
 import React from "react";
 
-import TodoForm from "./react-query/TodoForm";
-import TodoList from "./react-query/TodoList";
+import Counter from "./state-management/Counter";
 
 import "./App.css";
 
 function App() {
-  return (
-    <>
-      <TodoForm />
-
-      <TodoList />
-    </>
-  );
+  return <Counter />;
 }
 
 export default App;

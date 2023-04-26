@@ -1,22 +1,21 @@
-import React, { useContext } from "react";
+import React from "react";
 
-import AuthContext from "./contexts/authContext";
+import useAuth from "./hooks/useAuth";
 
 const LoginStatus = () => {
-  const { user, dispatch } = useContext(AuthContext);
+  const { user, dispatch } = useAuth();
 
   if (user)
     return (
-      <>
-        <div>
-          <span className="mx-2">{user}</span>
+      <div>
+        <span className="mx-2">{user}</span>
 
-          <a onClick={() => dispatch({ type: "LOGOUT" })} href="#">
-            Logout
-          </a>
-        </div>
-      </>
+        <a onClick={() => dispatch({ type: "LOGOUT" })} href="#">
+          Logout
+        </a>
+      </div>
     );
+
   return (
     <div>
       <a

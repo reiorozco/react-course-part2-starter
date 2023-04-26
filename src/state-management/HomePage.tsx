@@ -1,6 +1,6 @@
 import React from "react";
 
-import TaskList from "./TaskList";
+import { TaskList } from "./tasks";
 
 const HomePage = () => {
   return <TaskList />;

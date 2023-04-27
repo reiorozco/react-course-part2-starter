@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { mountStoreDevtool } from "simple-zustand-devtools";
 
 interface CounterStore {
   counter: number;
@@ -19,5 +20,9 @@ const useCounterStore = create<CounterStore>((setState) => ({
       counter: 0,
     })),
 }));
+
+if (process.env.NODE_ENV === "development") {
+  mountStoreDevtool("Counter store: ", useCounterStore);
+}
 
 export default useCounterStore;

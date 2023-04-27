@@ -7,7 +7,7 @@ const useTasks = () => useContext(TasksContext);
 
 const TaskList = () => {
   const { tasks, dispatch } = useTasks();
-  const { user } = useAuthStore();
+  const user = useAuthStore((store) => store.user);
 
   return (
     <>

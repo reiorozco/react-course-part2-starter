@@ -9,10 +9,6 @@ const UserListPage = () => {
   ];
   return (
     <>
-      <div className="ms-1 mb-2">
-        <Link to="/">Go back</Link>
-      </div>
-
       <ul className="list-group">
         {users.map((user) => (
           <li className="list-group-item" key={user.id}>
